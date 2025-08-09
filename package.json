@@ -1,0 +1,39 @@
+{
+  "name": "serverless-framework-template",
+  "version": "1.0.0",
+  "description": "Serverless Framework TypeScript Lambda template",
+  "main": "dist/index.js",
+  "repository": "https://github.com/d16sekine/serverless-framework-template",
+  "author": "d16sekine@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "build": "serverless package",
+    "dev": "serverless offline",
+    "deploy": "serverless deploy",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:prod": "serverless deploy --stage prod",
+    "remove": "serverless remove",
+    "logs": "serverless logs -f hello -t",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "clean": "rm -rf dist .serverless"
+  },
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.119"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.5",
+    "esbuild": "^0.19.0",
+    "serverless": "^3.33.0",
+    "serverless-offline": "^12.0.4",
+    "serverless-esbuild": "^1.50.0",
+    "vitest": "^1.0.0",
+    "typescript": "^5.1.6"
+  },
+  "keywords": [
+    "serverless",
+    "lambda",
+    "typescript",
+    "aws"
+  ]
+}

@@ -1,0 +1,47 @@
+service: serverless-typescript-lambda
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ${opt:region, 'ap-northeast-1'}
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  environment:
+    NODE_ENV: ${self:provider.stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+          Resource: '*'
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: true
+    exclude: ['aws-sdk']
+    target: 'node20'
+    define:
+      'require.resolve': undefined
+  serverless-offline:
+    httpPort: 3000
+    stage: ${self:provider.stage}
