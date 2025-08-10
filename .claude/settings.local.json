@@ -12,5 +12,6 @@
       "Bash(sudo:*)",
       "Read(.env.*)"
     ]
-  }
+  },
+  "includeCoAuthoredBy": false
 }
