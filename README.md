@@ -81,11 +81,11 @@ yarn remove
 ## Project Structure
 
 ```
+├── __tests__/
+│   └── hello.test.ts             # Tests for hello function
 ├── src/
 │   └── handlers/
-│       ├── hello.ts              # Hello world Lambda function
-│       └── __tests__/
-│           └── hello.test.ts     # Tests for hello function
+│       └── hello.ts              # Hello world Lambda function
 ├── .eslintrc.json                # ESLint configuration
 ├── .prettierrc.json              # Prettier configuration
 ├── serverless.yml                # Serverless framework configuration
