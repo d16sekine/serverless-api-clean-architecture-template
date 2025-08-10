@@ -11,7 +11,9 @@ This is a serverless framework template for TypeScript Lambda functions on AWS. 
 - **Sample Functions**: Hello world and API proxy handlers in `src/handlers/`
 - **Development Tools**: ESLint, Vitest, and offline development support
 
-## Test-Driven Development (TDD)
+## Development method
+
+### Test-Driven Development (TDD)
 
 - 原則としてテスト駆動開発（TDD）で進める
 - 期待される入出力に基づき、まずテストを作成する
@@ -22,7 +24,7 @@ This is a serverless framework template for TypeScript Lambda functions on AWS. 
 - 実装中はテストを変更せず、コードを修正し続ける
 - すべてのテストが通過するまで繰り返す
 
-### rule 
+### rules
 - テスト用の関数はtest()を使用する
 
 ## Common Commands
@@ -56,6 +58,8 @@ The project follows a typical serverless structure:
 - CORS is pre-configured for API Gateway endpoints
 
 ### Directory Structure
+
+基本的に以下の構造に従ってください。
 
 .
 ├── README.md
