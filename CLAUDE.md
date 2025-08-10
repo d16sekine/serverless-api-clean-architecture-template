@@ -14,12 +14,14 @@ This is a serverless framework template for TypeScript Lambda functions on AWS. 
 ## Common Commands
 
 ### Development
+
 - `npm run dev` - Start serverless offline for local development (port 3000)
 - `npm run build` - Compile TypeScript to JavaScript
 - `npm test` - Run Vitest tests
 - `npm test:watch` - Run Vitest in watch mode
 
 ### Deployment
+
 - `npm run deploy` - Deploy to AWS (default stage: dev)
 - `npm run deploy:dev` - Deploy to development stage
 - `npm run deploy:prod` - Deploy to production stage
@@ -27,11 +29,13 @@ This is a serverless framework template for TypeScript Lambda functions on AWS. 
 - `npm run logs` - View logs for the hello function
 
 ### Utility
+
 - `npm run clean` - Remove build artifacts and serverless cache
 
 ## Architecture
 
 The project follows a typical serverless structure:
+
 - `src/handlers/` - Lambda function handlers
 - `serverless.yml` - AWS resource definitions and function configurations
 - Functions are built using the `serverless-esbuild` plugin

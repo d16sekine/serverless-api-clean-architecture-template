@@ -1,6 +1,17 @@
 {
   "permissions": {
-    "allow": ["Bash(mkdir:*)", "Bash(yarn dev)", "Bash(yarn test)", "Bash(git:*)"],
-    "deny": []
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(yarn dev)",
+      "Bash(yarn test)",
+      "Bash(git:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(rm:*)",
+      "Bash(sudo:*)",
+      "Read(.env.*)"
+    ]
   }
 }

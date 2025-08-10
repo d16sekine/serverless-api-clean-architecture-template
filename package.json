@@ -16,7 +16,11 @@
     "logs": "serverless logs -f hello -t",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "clean": "rm -rf dist .serverless"
+    "clean": "rm -rf dist .serverless",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
   },
   "dependencies": {
     "@types/aws-lambda": "^8.10.119"
@@ -28,7 +32,13 @@
     "serverless-offline": "^12.0.4",
     "serverless-esbuild": "^1.50.0",
     "vitest": "^1.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "prettier": "^3.0.0",
+    "eslint": "^8.46.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0"
   },
   "keywords": [
     "serverless",
