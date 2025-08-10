@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Serverless Framework TypeScript Lambda template",
   "main": "dist/index.js",
+  "type": "module",
   "repository": "https://github.com/d16sekine/serverless-framework-template",
   "author": "d16sekine@gmail.com",
   "license": "MIT",
