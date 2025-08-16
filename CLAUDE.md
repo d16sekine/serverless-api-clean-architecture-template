@@ -31,22 +31,22 @@ This is a serverless framework template for TypeScript Lambda functions on AWS. 
 
 ### Development
 
-- `npm run dev` - Start serverless offline for local development (port 3000)
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm test` - Run Vitest tests
-- `npm test:watch` - Run Vitest in watch mode
+- `yarn run dev` - Start serverless offline for local development (port 3000)
+- `yarn build` - Compile TypeScript to JavaScript
+- `yarn test` - Run Vitest tests
+- `yarn test:watch` - Run Vitest in watch mode
 
 ### Deployment
 
-- `npm run deploy` - Deploy to AWS (default stage: dev)
-- `npm run deploy:dev` - Deploy to development stage
-- `npm run deploy:prod` - Deploy to production stage
-- `npm run remove` - Remove the deployed stack from AWS
-- `npm run logs` - View logs for the hello function
+- `yarn deploy` - Deploy to AWS (default stage: dev)
+- `yarn deploy:dev` - Deploy to development stage
+- `yarn deploy:prod` - Deploy to production stage
+- `yarn remove` - Remove the deployed stack from AWS
+- `yarn logs` - View logs for the hello function
 
 ### Utility
 
-- `npm run clean` - Remove build artifacts and serverless cache
+- `yarn clean` - Remove build artifacts and serverless cache
 
 ## Architecture
 
@@ -64,6 +64,7 @@ The project follows a typical serverless structure:
 .
 ├── README.md
 ├── package.json
+├── yarn.lock
 ├── src/
 ├── __tests__/
 ├── serverless.yml
