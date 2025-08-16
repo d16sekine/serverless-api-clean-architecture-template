@@ -24,7 +24,8 @@
     "lint:fix": "eslint src --ext .ts --fix"
   },
   "dependencies": {
-    "@types/aws-lambda": "^8.10.119"
+    "@types/aws-lambda": "^8.10.119",
+    "dotenv": "^17.2.1"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",

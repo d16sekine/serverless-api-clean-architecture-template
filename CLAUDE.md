@@ -20,6 +20,8 @@ The project follows a typical serverless structure:
 - Functions are built using the `serverless-esbuild` plugin
 - CORS is pre-configured for API Gateway endpoints
 
+- 環境変数は.envで設定。.envは.gitignore対象なので、.env.exmapleも用意する
+
 ### Directory Structure
 
 基本的に以下の構造に従ってください。

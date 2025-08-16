@@ -8,6 +8,7 @@ interface HelloResponse {
   message: string
   timestamp: string
   requestId: string
+  envSample: string
 }
 
 export const handler = async (
@@ -19,6 +20,7 @@ export const handler = async (
       message: 'Hello from Serverless TypeScript Lambda!',
       timestamp: new Date().toISOString(),
       requestId: context.awsRequestId,
+      envSample: process.env.ENV_SAMPLE || 'default_value',
     }
 
     return {

@@ -116,6 +116,7 @@ yarn remove
 ├── src/
 │   └── handlers/
 │       └── hello.ts              # Hello world Lambda function
+├── .env.example                  # Environment variables example
 ├── .eslintrc.json                # ESLint configuration
 ├── .prettierrc.json              # Prettier configuration
 ├── serverless.yml                # Serverless framework configuration
@@ -174,13 +175,33 @@ yarn remove
 ### Environment Configuration
 
 #### Environment Variables
-- `NODE_ENV`: Automatically set based on deployment stage
-- Add custom variables in `serverless.yml`:
-  ```yaml
-  provider:
-    environment:
-      YOUR_CUSTOM_VAR: ${env:YOUR_CUSTOM_VAR, 'default-value'}
-  ```
+
+This template supports environment variables through `.env` files:
+
+1. **Setup Environment Variables**:
+   ```bash
+   # Copy the example file
+   cp .env.example .env
+   
+   # Edit your environment variables
+   nano .env
+   ```
+
+2. **Configure in serverless.yml**:
+   ```yaml
+   useDotenv: true
+   
+   provider:
+     environment:
+       ENV_SAMPLE: ${env:ENV_SAMPLE, 'default_value'}
+   ```
+
+3. **Use in Lambda functions**:
+   ```typescript
+   const envSample = process.env.ENV_SAMPLE || 'default_value'
+   ```
+
+**Note**: `.env` files are automatically ignored by git. Always use `.env.example` to document required environment variables.
 
 #### AWS Resources Configuration
 - **Runtime**: Node.js 20.x
@@ -219,41 +240,6 @@ The template includes pre-configured tools:
   "trailingComma": "es5"
 }
 ```
-
-### Database Integration
-
-#### DynamoDB Example
-1. **Add IAM permissions in serverless.yml**:
-   ```yaml
-   provider:
-     iam:
-       role:
-         statements:
-           - Effect: Allow
-             Action:
-               - dynamodb:GetItem
-               - dynamodb:PutItem
-               - dynamodb:UpdateItem
-               - dynamodb:DeleteItem
-             Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/YourTable"
-   ```
-
-2. **Add DynamoDB resource**:
-   ```yaml
-   resources:
-     Resources:
-       YourTable:
-         Type: AWS::DynamoDB::Table
-         Properties:
-           TableName: ${self:service}-${self:provider.stage}-your-table
-           AttributeDefinitions:
-             - AttributeName: id
-               AttributeType: S
-           KeySchema:
-             - AttributeName: id
-               KeyType: HASH
-           BillingMode: PAY_PER_REQUEST
-   ```
 
 ### Testing Strategy
 

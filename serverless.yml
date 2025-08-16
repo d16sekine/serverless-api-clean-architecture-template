@@ -2,6 +2,8 @@ service: serverless-typescript-lambda
 
 frameworkVersion: '3'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs20.x
@@ -9,7 +11,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   timeout: 30
   environment:
-    NODE_ENV: ${self:provider.stage}
+    ENV_SAMPLE: ${env:ENV_SAMPLE, 'default_value'}
   iam:
     role:
       statements:
