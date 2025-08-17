@@ -20,7 +20,7 @@ The project follows a typical serverless structure:
 - Functions are built using the `serverless-esbuild` plugin
 - CORS is pre-configured for API Gateway endpoints
 
-- 環境変数は.envで設定。.envは.gitignore対象なので、.env.exmapleも用意する
+- 環境変数は.envで設定。.envは.gitignore対象なので、.env.exampleも用意する
 
 ### Directory Structure
 
@@ -48,17 +48,23 @@ The project follows a typical serverless structure:
 - 実装中はテストを変更せず、コードを修正し続ける
 - すべてのテストが通過するまで繰り返す
 
-### Test rules
+## Coding Conventions
+
+### Test
 - テスト用の関数はtest()を使用する
 
-### TypeScript rules
+### TypeScript
 - 型定義はtypeを優先して利用する
+
+### Commit message
+- conventional commitsに従う
+  - https://www.conventionalcommits.org/ja/v1.0.0/
 
 ## Common Commands
 
 ### Development
 
-- `yarn run dev` - Start serverless offline for local development (port 3000)
+- `yarn dev` - Start serverless offline for local development (port 3000)
 - `yarn build` - Compile TypeScript to JavaScript
 - `yarn test` - Run Vitest tests
 - `yarn test:watch` - Run Vitest in watch mode
