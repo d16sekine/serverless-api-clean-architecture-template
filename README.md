@@ -1,14 +1,16 @@
-# Serverless Framework TypeScript Template
+# Serverless Framework REST API Template
 
-A production-ready serverless framework template for building TypeScript Lambda functions on AWS.
+A production-ready Serverless Framework template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
 
 ## Features
 
+- **Clean Architecture**: Domain-driven design with clear separation of concerns
 - **TypeScript Support**: Full TypeScript configuration with type definitions
+- **REST API Ready**: Pre-configured for building scalable REST APIs
+- **Test-Driven Development**: Vitest setup for TDD workflow
 - **Fast Building**: Uses esbuild for rapid compilation and bundling
-- **Testing**: Vitest for modern, fast testing
-- **Code Quality**: ESLint and Prettier for consistent code formatting and linting
-- **Local Development**: Serverless offline for local testing
+- **Code Quality**: ESLint and Prettier for consistent code formatting
+- **Local Development**: Serverless offline for local API testing
 - **API Gateway**: Pre-configured CORS and HTTP endpoints
 
 ## Getting Started
@@ -111,14 +113,23 @@ yarn remove
 ## Project Structure
 
 ```
-├── __tests__/
-│   └── hello.test.ts             # Tests for hello function
+├── __tests__/                    # Test files
+│   ├── handlers/                 # Handler tests
+│   └── usecases/                 # Use case tests
 ├── src/
-│   └── handlers/
-│       └── hello.ts              # Hello world Lambda function
+│   ├── domain/                   # Business logic (technology-independent)
+│   │   ├── entities/             # Domain entities
+│   │   └── services/             # Domain services
+│   ├── usecases/                 # Application use cases
+│   │   └── ports/                # Repository interfaces
+│   ├── repositories/             # Repository implementations
+│   ├── infrastructure/           # Technology-specific implementations
+│   └── handlers/                 # Lambda function entry points
+│       └── types/                # Handler type definitions
 ├── .env.example                  # Environment variables example
 ├── .eslintrc.json                # ESLint configuration
 ├── .prettierrc.json              # Prettier configuration
+├── CLAUDE.md                     # AI assistant instructions
 ├── serverless.yml                # Serverless framework configuration
 ├── tsconfig.json                 # TypeScript configuration
 ├── vitest.config.ts              # Vitest configuration
@@ -129,33 +140,46 @@ yarn remove
 
 ### Adding New Functions
 
-1. **Create a new handler**:
+1. **Create a use case**:
    ```bash
-   # Create new handler file
-   touch src/handlers/your-function.ts
+   # Create new use case file
+   touch src/usecases/YourUseCase.ts
    ```
 
-2. **Implement the function**:
+2. **Implement the use case**:
+   ```typescript
+   export class YourUseCase {
+     execute(params: any) {
+       // Business logic here
+       return { result: 'success' }
+     }
+   }
+   ```
+
+3. **Create a handler**:
    ```typescript
    import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
+   import { YourUseCase } from '../usecases/YourUseCase'
 
    export const handler = async (
      event: APIGatewayProxyEvent,
      context: Context
    ): Promise<APIGatewayProxyResult> => {
-     // Your function logic here
+     const useCase = new YourUseCase()
+     const result = useCase.execute(event)
+     
      return {
        statusCode: 200,
        headers: {
          'Content-Type': 'application/json',
          'Access-Control-Allow-Origin': '*',
        },
-       body: JSON.stringify({ message: 'Success' }),
+       body: JSON.stringify(result),
      }
    }
    ```
 
-3. **Add to serverless.yml**:
+4. **Add to serverless.yml**:
    ```yaml
    functions:
      yourFunction:
@@ -167,9 +191,13 @@ yarn remove
              cors: true
    ```
 
-4. **Create tests**:
+5. **Create tests (TDD approach)**:
    ```bash
-   touch __tests__/your-function.test.ts
+   # Test for use case
+   touch __tests__/usecases/YourUseCase.test.ts
+   
+   # Test for handler
+   touch __tests__/handlers/your-function.test.ts
    ```
 
 ### Environment Configuration
@@ -241,34 +269,6 @@ The template includes pre-configured tools:
 }
 ```
 
-### Testing Strategy
-
-#### Unit Tests with Vitest
-```typescript
-import { describe, it, expect, vi } from 'vitest'
-import { handler } from '../src/handlers/your-function'
-
-describe('Your Function', () => {
-  it('should return success response', async () => {
-    const event = {} as any
-    const context = { awsRequestId: 'test-id' } as any
-    
-    const result = await handler(event, context)
-    
-    expect(result.statusCode).toBe(200)
-    expect(JSON.parse(result.body)).toHaveProperty('message')
-  })
-})
-```
-
-#### Integration Tests
-```bash
-# Start local server
-yarn dev
-
-# Test endpoints
-curl http://localhost:3000/your-endpoint
-```
 
 ### Deployment Strategies
 

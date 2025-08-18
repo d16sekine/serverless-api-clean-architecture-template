@@ -17,7 +17,7 @@ describe('hello handler', () => {
     const body = JSON.parse(result.body)
     expect(body).toHaveProperty(
       'message',
-      'Hello from Serverless TypeScript Lambda!'
+      'Hello World from Serverless REST API!'
     )
   })
 

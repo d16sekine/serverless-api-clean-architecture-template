@@ -3,22 +3,21 @@ import {
   APIGatewayProxyResult,
   Context,
 } from 'aws-lambda'
-
-interface HelloResponse {
-  message: string
-  timestamp: string
-  requestId: string
-  envSample: string
-}
+import { GetHelloMessageUseCase } from '../usecases/GetHelloMessage'
+import { HelloResponse } from './types/HelloResponse'
 
 export const handler = async (
   event: APIGatewayProxyEvent,
   context: Context
 ): Promise<APIGatewayProxyResult> => {
   try {
+    const useCase = new GetHelloMessageUseCase()
+    const messageData = useCase.execute()
+
     const response: HelloResponse = {
-      message: 'Hello from Serverless TypeScript Lambda!',
-      timestamp: new Date().toISOString(),
+      message: messageData.message,
+      timestamp:
+        messageData.timestamp || new Date().toISOString(),
       requestId: context.awsRequestId,
       envSample: process.env.ENV_SAMPLE || 'default_value',
     }

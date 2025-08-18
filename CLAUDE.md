@@ -56,11 +56,13 @@ The project follows a typical serverless structure:
     ├── repositories/     # リポジトリの具体的な実装
     ├── infrastructure/   # 技術依存の実装
     └── handlers/         # Lambda関数のエントリーポイント
+        └── types/        # ハンドラー用の型定義
 ```
 
-## Development method
 
-### Test-Driven Development (TDD)
+## Development Guidelines
+
+### Development method: Test-Driven Development (TDD)
 
 - 原則としてテスト駆動開発（TDD）で進める
 - 期待される入出力に基づき、まずテストを作成する
@@ -70,13 +72,14 @@ The project follows a typical serverless structure:
 - その後、テストをパスさせる実装を進める
 - 実装中はテストを変更せず、コードを修正し続ける
 - すべてのテストが通過するまで繰り返す
+- lintを実行する。エラーが発生する場合は修正し、lintが通ることを確認する
 
-## Coding Conventions
+### Coding Conventions
 
-### TypeScript
+#### TypeScript
 - 型定義はtypeを優先して利用する
 
-### Test
+#### Test
 - テスト用の関数はtest()を使用する
 
 ### Commit message
