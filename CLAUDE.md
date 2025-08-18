@@ -4,14 +4,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a serverless framework template for TypeScript Lambda functions on AWS. The project includes:
+This is a Serverless Framework template for building REST APIs with TypeScript on AWS Lambda. This template provides a foundation for creating scalable, serverless REST API endpoints with the following features:
 
-- **serverless.yml**: Serverless Framework configuration for AWS Lambda deployment
-- **TypeScript Configuration**: Full TypeScript setup with type definitions
-- **Sample Functions**: Hello world and API proxy handlers in `src/handlers/`
-- **Development Tools**: ESLint, Vitest, and offline development support
+- **serverless.yml**: Serverless Framework configuration for AWS Lambda deployment and API Gateway setup
+- **TypeScript Configuration**: Full TypeScript setup with type definitions for type-safe API development
+- **Sample API Endpoints**: Example REST API handlers in `src/handlers/` demonstrating GET/POST patterns
+- **Development Tools**: ESLint, Vitest for testing, and serverless-offline for local API development
 
-## Architecture
+## Technical Specifications
+
+### Dependencies
+
+- servereless framework
+- serverless-offline
+- serverless-esbuild
+- esbuild
+- vitest
+- eslint
+- prettier
+
+### Architecture
 
 The project follows a typical serverless structure:
 
@@ -21,19 +33,30 @@ The project follows a typical serverless structure:
 - CORS is pre-configured for API Gateway endpoints
 
 - 環境変数は.envで設定。.envは.gitignore対象なので、.env.exampleも用意する
+- Domain driven designとClean Archtectureの思想を参考に、技術依存の部分とビジネスロジックの責務を分離する
 
-### Directory Structure
+## Directory Structure
 
 基本的に以下の構造に従ってください。
 
+```
 .
 ├── README.md
 ├── package.json
 ├── yarn.lock
-├── src/
-├── __tests__/
 ├── serverless.yml
 ├── tsconfig.json
+├── __tests__/
+└── src/
+    ├── domain/           # ビジネスロジック（技術非依存）
+    │   ├── entities/     # ドメインエンティティ
+    │   └── services/     # ドメインサービス
+    ├── usecases/         # アプリケーションのユースケース
+    │   └── ports/        # リポジトリインターフェース
+    ├── repositories/     # リポジトリの具体的な実装
+    ├── infrastructure/   # 技術依存の実装
+    └── handlers/         # Lambda関数のエントリーポイント
+```
 
 ## Development method
 
@@ -50,11 +73,11 @@ The project follows a typical serverless structure:
 
 ## Coding Conventions
 
-### Test
-- テスト用の関数はtest()を使用する
-
 ### TypeScript
 - 型定義はtypeを優先して利用する
+
+### Test
+- テスト用の関数はtest()を使用する
 
 ### Commit message
 - conventional commitsに従う
