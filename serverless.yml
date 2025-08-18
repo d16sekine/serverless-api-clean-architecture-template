@@ -1,4 +1,4 @@
-service: serverless-typescript-lambda
+service: serverless-api-clean-architecture
 
 frameworkVersion: '3'
 

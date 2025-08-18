@@ -1,4 +1,4 @@
-# Serverless Framework REST API Template
+# Serverless API Clean Architecture Template
 
 A production-ready Serverless Framework template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
 

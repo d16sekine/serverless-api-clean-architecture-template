@@ -1,10 +1,10 @@
 {
-  "name": "serverless-framework-ts-lambda-template",
+  "name": "serverless-api-clean-architecture-template",
   "version": "1.0.0",
-  "description": "Serverless Framework TypeScript Lambda template",
+  "description": "Serverless REST API template with Clean Architecture",
   "main": "dist/index.js",
   "type": "module",
-  "repository": "https://github.com/d16sekine/serverless-framework-ts-lambda-template",
+  "repository": "https://github.com/d16sekine/serverless-api-clean-architecture-template",
   "author": "d16sekine@gmail.com",
   "license": "MIT",
   "scripts": {
@@ -46,6 +46,9 @@
     "serverless",
     "lambda",
     "typescript",
-    "aws"
+    "aws",
+    "clean-architecture",
+    "rest-api",
+    "api-gateway"
   ]
 }
