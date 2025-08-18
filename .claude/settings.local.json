@@ -4,6 +4,8 @@
       "Bash(mkdir:*)",
       "Bash(yarn dev)",
       "Bash(yarn test:*)",
+      "Bash(yarn lint:*)",
+      "Bash(yarn build)",
       "Bash(git add:*)",
       "Bash(git commit:*)"
     ],
