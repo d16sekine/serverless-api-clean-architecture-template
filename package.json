@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Serverless REST API template with Clean Architecture",
   "main": "dist/index.js",
-  "type": "module",
   "repository": "https://github.com/d16sekine/serverless-api-clean-architecture-template",
   "author": "d16sekine@gmail.com",
   "license": "MIT",
@@ -21,7 +20,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
+    "lint:fix": "eslint src --ext .ts --fix",
+    "playground:dev": "cd playground && yarn dev",
+    "playground:build": "cd playground && yarn build",
+    "playground:start": "cd playground && yarn start"
   },
   "dependencies": {
     "@types/aws-lambda": "^8.10.119",

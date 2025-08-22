@@ -1,0 +1,168 @@
+.container {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.container h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.5rem;
+}
+
+.form {
+  margin-bottom: 2rem;
+}
+
+.row {
+  margin-bottom: 1rem;
+}
+
+.row label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.select,
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: 'Courier New', monospace;
+}
+
+.select {
+  width: 120px;
+  margin-right: 1rem;
+}
+
+.input {
+  flex: 1;
+}
+
+.row:first-of-type {
+  display: flex;
+  align-items: center;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.button {
+  background: #007acc;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background: #005a9e;
+}
+
+.button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.response {
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.response h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.responseHeader {
+  margin-bottom: 1rem;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.status.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.responseBody {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  padding: 1rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #2d2d2d;
+    color: white;
+  }
+
+  .container h2 {
+    color: #fff;
+    border-bottom-color: #4a9eff;
+  }
+
+  .row label {
+    color: #ccc;
+  }
+
+  .select,
+  .input,
+  .textarea {
+    background: #1a1a1a;
+    border-color: #555;
+    color: white;
+  }
+
+  .responseBody {
+    background: #1a1a1a;
+    border-color: #555;
+    color: #ccc;
+  }
+
+  .response h3 {
+    color: #fff;
+  }
+}

@@ -12,6 +12,7 @@ A production-ready Serverless Framework template for building REST APIs with Typ
 - **Code Quality**: ESLint and Prettier for consistent code formatting
 - **Local Development**: Serverless offline for local API testing
 - **API Gateway**: Pre-configured CORS and HTTP endpoints
+- **API Playground**: Interactive web UI for testing API endpoints
 
 ## Getting Started
 
@@ -88,10 +89,29 @@ The local server will start on `http://localhost:3000`
 
 ### Testing the API
 
+#### Using curl
 ```bash
 # Test the hello endpoint
-curl http://localhost:3000/hello
+curl http://localhost:3000/dev/hello
 ```
+
+#### Using API Playground
+```bash
+# Start the API server (in one terminal)
+yarn dev
+
+# Start the playground (in another terminal)
+yarn playground:dev
+
+# Open browser
+open http://localhost:3001
+```
+
+The playground provides an interactive web interface to:
+- Test all API endpoints with different HTTP methods
+- Customize request headers and body
+- View formatted responses
+- Switch between different API base URLs (local, dev, prod)
 
 ### Deployment
 
@@ -126,6 +146,11 @@ yarn remove
 │   ├── infrastructure/           # Technology-specific implementations
 │   └── handlers/                 # Lambda function entry points
 │       └── types/                # Handler type definitions
+├── playground/                   # API testing web application
+│   ├── pages/                    # Next.js page components
+│   ├── components/               # React components
+│   ├── styles/                   # CSS modules
+│   └── utils/                    # Utility functions
 ├── .env.example                  # Environment variables example
 ├── .eslintrc.json                # ESLint configuration
 ├── .prettierrc.json              # Prettier configuration
@@ -327,6 +352,11 @@ jobs:
 - `yarn deploy:prod` - Deploy to production stage
 - `yarn remove` - Remove deployed resources
 - `yarn logs` - View function logs
+
+### Playground
+- `yarn playground:dev` - Start API playground web interface (port 3001)
+- `yarn playground:build` - Build playground for production
+- `yarn playground:start` - Start production playground server
 
 ### Utility
 - `yarn clean` - Remove build artifacts
