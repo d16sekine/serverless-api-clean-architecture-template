@@ -29,5 +29,8 @@ test('hello handler はエラー時に 500 を返す', async () => {
   expect(result.statusCode).toBe(500)
 
   const body = JSON.parse(result.body)
-  expect(body).toHaveProperty('error', 'Internal Server Error')
+  expect(body).toHaveProperty(
+    'error',
+    'Internal Server Error'
+  )
 })
