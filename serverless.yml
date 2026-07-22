@@ -1,6 +1,6 @@
 service: serverless-api-clean-architecture
 
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 useDotenv: true
 
@@ -33,6 +33,27 @@ functions:
       - http:
           path: /hello
           method: get
+          cors: true
+  # Todo リソースは単一 Lambda（lambdalith）で受け、内部ルーターで振り分ける。
+  # これにより InMemoryTodoRepository の状態が全ルートで共有される。
+  todos:
+    handler: src/handlers/todos/index.handler
+    events:
+      - http:
+          path: /todos
+          method: post
+          cors: true
+      - http:
+          path: /todos
+          method: get
+          cors: true
+      - http:
+          path: /todos/{id}
+          method: get
+          cors: true
+      - http:
+          path: /todos/{id}/complete
+          method: patch
           cors: true
 
 custom:

@@ -6,6 +6,9 @@
   "repository": "https://github.com/d16sekine/serverless-api-clean-architecture-template",
   "author": "d16sekine@gmail.com",
   "license": "MIT",
+  "engines": {
+    "node": "^20.19 || ^22.13 || >=24"
+  },
   "scripts": {
     "build": "serverless package",
     "dev": "serverless offline",
@@ -38,7 +41,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.0.0",
-    "serverless": "^3.33.0",
+    "osls": "^4.0.0",
     "serverless-esbuild": "^1.50.0",
     "serverless-offline": "^14.4.0",
     "typescript": "^5.1.6",

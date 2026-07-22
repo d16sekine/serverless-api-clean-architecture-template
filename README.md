@@ -1,6 +1,11 @@
 # Serverless API Clean Architecture Template
 
-A production-ready Serverless Framework template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
+A production-ready template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
+
+> **Note: This template uses [osls (Open-Source Serverless)](https://github.com/oss-serverless/osls), not the official `serverless` CLI.**
+> The official Serverless Framework v3 reached end-of-life on 2024-12-31, and v4 moved to a proprietary, paid license.
+> `osls` is the community-maintained, **MIT-licensed** fork of v3 (drop-in compatible), so this template stays fully open-source and free to use.
+> All `yarn` scripts call `osls` under the hood, exposing the familiar `serverless` / `sls` / `osls` commands.
 
 ## Features
 
@@ -18,7 +23,7 @@ A production-ready Serverless Framework template for building REST APIs with Typ
 
 ### Prerequisites
 
-- Node.js 18 or higher
+- Node.js 20.19+ (or 22.13+, or 24+) — required by osls v4
 - AWS CLI configured with appropriate credentials
 - Yarn package manager
 
@@ -29,20 +34,22 @@ A production-ready Serverless Framework template for building REST APIs with Typ
    - Or clone: `git clone <YOUR_REPOSITORY_URL>`
 
 2. **Initial Setup**
+
    ```bash
    cd <your-project-name>
-   
+
    # Install dependencies
    yarn install
-   
+
    # Update project configuration (see Configuration section below)
    ```
 
 3. **Required Configuration Updates**
-   
+
    After creating your project from this template, update the following files:
 
    **package.json**:
+
    ```json
    {
      "name": "your-project-name",
@@ -52,6 +59,7 @@ A production-ready Serverless Framework template for building REST APIs with Typ
    ```
 
    **serverless.yml**:
+
    ```yaml
    service: your-service-name
    ```
@@ -90,12 +98,28 @@ The local server will start on `http://localhost:3000`
 ### Testing the API
 
 #### Using curl
+
 ```bash
-# Test the hello endpoint
+# Hello endpoint
 curl http://localhost:3000/dev/hello
+
+# Todo endpoints (clean-architecture example)
+# Create
+curl -X POST http://localhost:3000/dev/todos \
+  -H 'Content-Type: application/json' -d '{"title":"Buy milk"}'
+# List
+curl http://localhost:3000/dev/todos
+# Get one (use an id returned by create)
+curl http://localhost:3000/dev/todos/<id>
+# Mark as completed
+curl -X PATCH http://localhost:3000/dev/todos/<id>/complete
 ```
 
+> The Todo endpoints are a worked example of the layered architecture.
+> See **[docs/architecture.md](docs/architecture.md)** for a full walkthrough (Japanese).
+
 #### Using API Playground
+
 ```bash
 # Start the API server (in one terminal)
 yarn dev
@@ -108,6 +132,7 @@ open http://localhost:3001
 ```
 
 The playground provides an interactive web interface to:
+
 - Test all API endpoints with different HTTP methods
 - Customize request headers and body
 - View formatted responses
@@ -133,45 +158,56 @@ yarn remove
 ## Project Structure
 
 ```
-├── __tests__/                    # Test files
-│   ├── handlers/                 # Handler tests
-│   └── usecases/                 # Use case tests
+├── __tests__/                    # Test files (mirrors src/ layers)
+│   ├── domain/                   # todo.test.ts
+│   ├── usecases/                 # todo-usecases.test.ts, get-hello-message.test.ts
+│   ├── repositories/             # in-memory-todo-repository.test.ts
+│   └── hello.test.ts
+├── docs/                         # Japanese learning material
+│   ├── architecture.md           # Clean architecture walkthrough (tutorial)
+│   └── article.md                # Zenn/Qiita article draft
 ├── src/
 │   ├── domain/                   # Business logic (technology-independent)
-│   │   ├── entities/             # Domain entities
-│   │   └── services/             # Domain services
-│   ├── usecases/                 # Application use cases
-│   │   └── ports/                # Repository interfaces
-│   ├── repositories/             # Repository implementations
-│   ├── infrastructure/           # Technology-specific implementations
-│   └── handlers/                 # Lambda function entry points
+│   │   ├── entities/             # todo.ts, message.ts
+│   │   └── errors.ts             # ValidationError, TodoNotFoundError
+│   ├── usecases/                 # Application use cases (create/list/get/complete-todo.ts)
+│   │   └── ports/                # Interfaces: todo-repository, id-provider, clock
+│   ├── repositories/             # in-memory-todo-repository.ts (implements a port)
+│   ├── infrastructure/           # uuid-id-provider, system-clock, todo-container (DI)
+│   └── handlers/                 # Lambda entry points
+│       ├── todos/                # index.ts (router) + create/list/get/complete.ts
+│       ├── http.ts               # domain error -> HTTP status mapping
+│       ├── hello.ts
 │       └── types/                # Handler type definitions
-├── playground/                   # API testing web application
-│   ├── pages/                    # Next.js page components
-│   ├── components/               # React components
-│   ├── styles/                   # CSS modules
-│   └── utils/                    # Utility functions
-├── .env.example                  # Environment variables example
-├── .eslintrc.json                # ESLint configuration
-├── .prettierrc.json              # Prettier configuration
-├── CLAUDE.md                     # AI assistant instructions
-├── serverless.yml                # Serverless framework configuration
+├── playground/                   # API testing web application (Next.js)
+├── serverless.yml                # osls (Serverless Framework v3-compatible) config
 ├── tsconfig.json                 # TypeScript configuration
 ├── vitest.config.ts              # Vitest configuration
+├── CLAUDE.md                     # AI assistant instructions
 └── package.json                  # Dependencies and scripts
 ```
+
+## Learning Material (日本語)
+
+This template doubles as a hands-on **clean architecture** tutorial in Japanese,
+using the Todo API as a worked example:
+
+- **[docs/architecture.md](docs/architecture.md)** — レイヤー構成・依存の向き・リクエストの流れ・新エンドポイントの追加手順を図解
+- **[docs/article.md](docs/article.md)** — Zenn/Qiita 向けの解説記事の下書き（osls への移行背景つき）
 
 ## Customization Guide
 
 ### Adding New Functions
 
 1. **Create a use case**:
+
    ```bash
    # Create new use case file
    touch src/usecases/YourUseCase.ts
    ```
 
 2. **Implement the use case**:
+
    ```typescript
    export class YourUseCase {
      execute(params: any) {
@@ -182,8 +218,13 @@ yarn remove
    ```
 
 3. **Create a handler**:
+
    ```typescript
-   import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
+   import {
+     APIGatewayProxyEvent,
+     APIGatewayProxyResult,
+     Context,
+   } from 'aws-lambda'
    import { YourUseCase } from '../usecases/YourUseCase'
 
    export const handler = async (
@@ -192,7 +233,7 @@ yarn remove
    ): Promise<APIGatewayProxyResult> => {
      const useCase = new YourUseCase()
      const result = useCase.execute(event)
-     
+
      return {
        statusCode: 200,
        headers: {
@@ -205,6 +246,7 @@ yarn remove
    ```
 
 4. **Add to serverless.yml**:
+
    ```yaml
    functions:
      yourFunction:
@@ -217,10 +259,11 @@ yarn remove
    ```
 
 5. **Create tests (TDD approach)**:
+
    ```bash
    # Test for use case
    touch __tests__/usecases/YourUseCase.test.ts
-   
+
    # Test for handler
    touch __tests__/handlers/your-function.test.ts
    ```
@@ -232,18 +275,20 @@ yarn remove
 This template supports environment variables through `.env` files:
 
 1. **Setup Environment Variables**:
+
    ```bash
    # Copy the example file
    cp .env.example .env
-   
+
    # Edit your environment variables
    nano .env
    ```
 
 2. **Configure in serverless.yml**:
+
    ```yaml
    useDotenv: true
-   
+
    provider:
      environment:
        ENV_SAMPLE: ${env:ENV_SAMPLE, 'default_value'}
@@ -251,12 +296,14 @@ This template supports environment variables through `.env` files:
 
 3. **Use in Lambda functions**:
    ```typescript
-   const envSample = process.env.ENV_SAMPLE || 'default_value'
+   const envSample =
+     process.env.ENV_SAMPLE || 'default_value'
    ```
 
 **Note**: `.env` files are automatically ignored by git. Always use `.env.example` to document required environment variables.
 
 #### AWS Resources Configuration
+
 - **Runtime**: Node.js 20.x
 - **Default Region**: ap-northeast-1 (Tokyo) - Change in serverless.yml
 - **Memory**: 256MB - Adjust per function if needed
@@ -273,12 +320,10 @@ The template includes pre-configured tools:
 #### Customizing Code Quality Rules
 
 **ESLint (.eslintrc.json)**:
+
 ```json
 {
-  "extends": [
-    "@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["@typescript-eslint/recommended", "prettier"],
   "rules": {
     // Add your custom rules here
   }
@@ -286,6 +331,7 @@ The template includes pre-configured tools:
 ```
 
 **Prettier (.prettierrc.json)**:
+
 ```json
 {
   "semi": false,
@@ -294,10 +340,10 @@ The template includes pre-configured tools:
 }
 ```
 
-
 ### Deployment Strategies
 
 #### Multiple Environments
+
 ```bash
 # Development
 yarn deploy:dev
@@ -310,7 +356,9 @@ serverless deploy --stage staging
 ```
 
 #### CI/CD Integration
+
 Create `.github/workflows/deploy.yml`:
+
 ```yaml
 name: Deploy
 on:
@@ -335,18 +383,21 @@ jobs:
 ## Available Scripts
 
 ### Development
+
 - `yarn dev` - Start serverless offline for local development
 - `yarn build` - Build the project using serverless package
 - `yarn test` - Run tests with Vitest
 - `yarn test:watch` - Run tests in watch mode
 
 ### Code Quality
+
 - `yarn format` - Format code with Prettier
 - `yarn format:check` - Check if code is properly formatted
 - `yarn lint` - Lint code with ESLint
 - `yarn lint:fix` - Lint and auto-fix issues with ESLint
 
 ### Deployment
+
 - `yarn deploy` - Deploy to AWS (dev stage)
 - `yarn deploy:dev` - Deploy to development stage
 - `yarn deploy:prod` - Deploy to production stage
@@ -354,11 +405,13 @@ jobs:
 - `yarn logs` - View function logs
 
 ### Playground
+
 - `yarn playground:dev` - Start API playground web interface (port 3001)
 - `yarn playground:build` - Build playground for production
 - `yarn playground:start` - Start production playground server
 
 ### Utility
+
 - `yarn clean` - Remove build artifacts
 
 ## Contributing
@@ -374,12 +427,18 @@ This is a template repository. If you have suggestions for improvements:
 ### Common Issues
 
 #### "serverless command not found"
+
+This template uses **osls** (the community-maintained OSS fork of Serverless Framework v3),
+which is installed locally as a dev dependency and provides the `serverless` / `sls` / `osls` commands.
+Run commands via `yarn` scripts (e.g. `yarn dev`) or install it globally if you prefer:
+
 ```bash
-# Install serverless globally
-npm install -g serverless
+# Install the OSS fork globally (do NOT install the proprietary `serverless` v4 unless intended)
+npm install -g osls
 ```
 
 #### AWS credentials not configured
+
 ```bash
 # Configure AWS CLI
 aws configure
@@ -390,6 +449,7 @@ export AWS_SECRET_ACCESS_KEY=your-secret-key
 ```
 
 #### TypeScript compilation errors
+
 ```bash
 # Clear build cache
 yarn clean
@@ -399,6 +459,7 @@ yarn build
 ```
 
 #### Port 3000 already in use
+
 ```bash
 # Use different port
 serverless offline --httpPort 3001
@@ -409,7 +470,8 @@ lsof -ti:3000 | xargs kill
 
 ### Getting Help
 
-- Check the [Serverless Framework documentation](https://www.serverless.com/framework/docs/)
+- Check the [osls (Open-Source Serverless) documentation](https://github.com/oss-serverless/osls)
+- Reference the [Serverless Framework v3 documentation](https://www.serverless.com/framework/docs/) (osls is v3-compatible)
 - Review [AWS Lambda documentation](https://docs.aws.amazon.com/lambda/)
 - Search existing issues on the original template repository
 

@@ -1,0 +1,12 @@
+# Dependencies & build artifacts
+node_modules/
+dist/
+.serverless/
+.esbuild/
+coverage/
+
+# Lock files
+yarn.lock
+
+# Playground is a separate workspace with its own tooling (Next.js / eslint-config-next)
+playground/

@@ -3,8 +3,8 @@ import {
   APIGatewayProxyResult,
   Context,
 } from 'aws-lambda'
-import { GetHelloMessageUseCase } from '../usecases/GetHelloMessage'
-import { HelloResponse } from './types/HelloResponse'
+import { GetHelloMessageUseCase } from '../usecases/get-hello-message'
+import { HelloResponse } from './types/hello-response'
 
 export const handler = async (
   event: APIGatewayProxyEvent,
