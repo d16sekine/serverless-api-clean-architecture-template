@@ -1,4 +1,4 @@
-import { GetHelloMessageUseCase } from '../../src/usecases/GetHelloMessage'
+import { GetHelloMessageUseCase } from '../../src/usecases/get-hello-message'
 import { test, expect } from 'vitest'
 
 test('GetHelloMessageUseCase returns correct message', () => {

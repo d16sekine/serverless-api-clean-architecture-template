@@ -1,4 +1,4 @@
-import { Message } from '../domain/entities/Message'
+import { Message } from '../domain/entities/message'
 
 export class GetHelloMessageUseCase {
   execute(): Message {
