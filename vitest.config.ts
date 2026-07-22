@@ -6,6 +6,6 @@ export default defineConfig({
     environment: 'node',
   },
   esbuild: {
-    target: 'node20'
-  }
+    target: 'node20',
+  },
 })

@@ -75,7 +75,6 @@ The project follows a typical serverless structure:
     └── utils/           # ユーティリティ関数
 ```
 
-
 ## Development Guidelines
 
 ### Development method: Test-Driven Development (TDD)
@@ -93,24 +92,28 @@ The project follows a typical serverless structure:
 ### Coding Conventions
 
 #### TypeScript
+
 - 型定義はtypeを優先して利用する（interfaceは必要な場合のみ）
 - 厳密な型付けを行い、anyの使用は避ける
 - 非同期処理はasync/awaitを使用する
 - エラーハンドリングはtry-catchで明示的に行う
 
 #### Test
+
 - テスト用の関数はtest()を使用する（describe/itではなく）
 - テストファイルは`__tests__/`ディレクトリに配置
 - ファイル名は`*.test.ts`形式とする
 - モックは最小限にし、実際の振る舞いに近いテストを書く
 
 #### Naming Conventions
+
 - ファイル名：ケバブケース（例：user-service.ts）
 - クラス名：パスカルケース（例：UserService）
 - 関数名・変数名：キャメルケース（例：getUserById）
 - 定数：大文字スネークケース（例：MAX_RETRY_COUNT）
 
 ### Commit message
+
 - conventional commitsに従う
   - https://www.conventionalcommits.org/ja/v1.0.0/
 - プレフィックス例：
@@ -163,11 +166,13 @@ The project follows a typical serverless structure:
 ## Error Handling
 
 ### Lambda Functions
+
 - すべてのハンドラーでtry-catchを使用してエラーをキャッチする
 - エラーレスポンスは適切なHTTPステータスコードと共に返す
 - エラーログは構造化されたフォーマットで出力する
 
 ### Response Format
+
 - 成功時：
   ```json
   {
@@ -184,8 +189,8 @@ The project follows a typical serverless structure:
   ```
 
 ## Security Best Practices
+
 - 環境変数に機密情報を格納し、コードにハードコードしない
 - 入力値の検証を必ず行う
 - SQLインジェクション、XSS等の一般的な脆弱性に対する対策を実装
 - AWSのIAMロールは最小権限の原則に従って設定
-
