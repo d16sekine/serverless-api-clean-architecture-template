@@ -6,6 +6,9 @@
   "repository": "https://github.com/d16sekine/serverless-api-clean-architecture-template",
   "author": "d16sekine@gmail.com",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.19"
+  },
   "scripts": {
     "build": "serverless package",
     "dev": "serverless offline",

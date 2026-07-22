@@ -23,7 +23,7 @@ A production-ready template for building REST APIs with TypeScript on AWS Lambda
 
 ### Prerequisites
 
-- Node.js 18 or higher
+- Node.js 20.19+ (or 22.13+, or 24+) — required by osls v4
 - AWS CLI configured with appropriate credentials
 - Yarn package manager
 
