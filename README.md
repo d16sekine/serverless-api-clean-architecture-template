@@ -1,6 +1,11 @@
 # Serverless API Clean Architecture Template
 
-A production-ready Serverless Framework template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
+A production-ready template for building REST APIs with TypeScript on AWS Lambda, following Clean Architecture principles.
+
+> **Note: This template uses [osls (Open-Source Serverless)](https://github.com/oss-serverless/osls), not the official `serverless` CLI.**
+> The official Serverless Framework v3 reached end-of-life on 2024-12-31, and v4 moved to a proprietary, paid license.
+> `osls` is the community-maintained, **MIT-licensed** fork of v3 (drop-in compatible), so this template stays fully open-source and free to use.
+> All `yarn` scripts call `osls` under the hood, exposing the familiar `serverless` / `sls` / `osls` commands.
 
 ## Features
 
@@ -374,9 +379,12 @@ This is a template repository. If you have suggestions for improvements:
 ### Common Issues
 
 #### "serverless command not found"
+This template uses **osls** (the community-maintained OSS fork of Serverless Framework v3),
+which is installed locally as a dev dependency and provides the `serverless` / `sls` / `osls` commands.
+Run commands via `yarn` scripts (e.g. `yarn dev`) or install it globally if you prefer:
 ```bash
-# Install serverless globally
-npm install -g serverless
+# Install the OSS fork globally (do NOT install the proprietary `serverless` v4 unless intended)
+npm install -g osls
 ```
 
 #### AWS credentials not configured
@@ -409,7 +417,8 @@ lsof -ti:3000 | xargs kill
 
 ### Getting Help
 
-- Check the [Serverless Framework documentation](https://www.serverless.com/framework/docs/)
+- Check the [osls (Open-Source Serverless) documentation](https://github.com/oss-serverless/osls)
+- Reference the [Serverless Framework v3 documentation](https://www.serverless.com/framework/docs/) (osls is v3-compatible)
 - Review [AWS Lambda documentation](https://docs.aws.amazon.com/lambda/)
 - Search existing issues on the original template repository
 

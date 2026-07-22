@@ -17,7 +17,7 @@ This is a Serverless Framework template for building REST APIs with TypeScript o
 ### Dependencies
 
 - yarn(パッケージ管理)
-- serverless framework (v3)
+- osls (Open-Source Serverless / Serverless Framework v3互換のOSSフォーク・MITライセンス)
 - serverless-offline (ローカル開発用)
 - serverless-esbuild (TypeScriptビルド用)
 - esbuild (高速バンドラー)

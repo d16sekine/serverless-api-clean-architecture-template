@@ -1,6 +1,6 @@
 service: serverless-api-clean-architecture
 
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 useDotenv: true
 
